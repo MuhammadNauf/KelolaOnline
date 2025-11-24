@@ -71,3 +71,36 @@ function openWhatsApp() {
     let url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
     window.open(url, "_blank");
 }
+
+//IMAGE SLIDE
+let index = 0;
+const slides = document.getElementById('slides');
+const dots = document.querySelectorAll('.dots span');
+const total = dots.length;
+
+
+function updateSlider() {
+slides.style.transform = `translateX(-${index * 100}%)`;
+dots.forEach(dot => dot.classList.remove('active'));
+dots[index].classList.add('active');
+}
+
+
+document.getElementById('next').onclick = () => {
+index = (index + 1) % total;
+updateSlider();
+};
+
+
+document.getElementById('prev').onclick = () => {
+index = (index - 1 + total) % total;
+updateSlider();
+};
+
+
+dots.forEach(dot => {
+dot.onclick = () => {
+index = parseInt(dot.getAttribute('data-index'));
+updateSlider();
+};
+});
